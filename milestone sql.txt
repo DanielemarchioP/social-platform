@@ -1,0 +1,34 @@
+ use db_milestone;
+
+select username,`type` 
+from users u
+join medias m on u.id = m.user_id 
+where `type` = 'video'
+group by username;
+
+
+select p.id as "post", p.title, count(l.post_id) as "numero di like per post" 
+from posts p 
+left join likes l  on l.post_id = p.id
+group by p.id ;
+
+
+
+select * 
+from posts p 
+left outer join likes l on p.id = l.post_id 
+where l.post_id IS NULL
+
+
+select username as "nome utente", count(m.user_id) as "numero di media caricati"
+from users u 
+join medias m on u.id = m.user_id 
+group by user_id
+order by count(m.user_id) asc ;
+
+
+select u.username , count(l.post_id) as "totale like ricevuti nei post" 
+from users u 
+join likes l on l.user_id = u.id 
+group by u.username 
+order by count(l.post_id) asc ;
